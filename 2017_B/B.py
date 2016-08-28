@@ -14,64 +14,45 @@ import sys
 #     return count
 
 def number_case(a, b, n, k):
-    count = 0
     a_dic = {}
     b_dic = {}
-    for i in range(1, n + 1):
+    i = 1
+    while i <= n:
         index = pow_mod_n(i, a, k)
         try:
             a_dic[index].add(i)
         except KeyError:
             a_dic[index] = set([i])
-    for j in range(1, n + 1):
+        i += 1
+    j = 1
+    while j <= n:
         index = pow_mod_n(j, b, k)
         try:
             b_dic[index].add(j)
         except KeyError:
             b_dic[index] = set([j])
+        j += 1
+    dic = {}
     for d in range(0 , k):
         try:
-            count += len(a_dic[d]) * len(b_dic[(k - d) % k])
-            count -= len(a_dic[d].intersection(b_dic[(k - d) % k]))
+            for i in a_dic[d]:
+                for j in b_dic[(k - d) % k]:
+                    if i == j:
+                        continue
+                    dic[(i,j)] = (i,j)
         except KeyError:
             pass
-    return count
+    return len(dic)
 
 
 def pow_mod_n(a, b, n):
-    x, y = 0, a % n
+    x, y = 1, a
     while b > 0:
         if b % 2 == 1:
-            x = (x + y) % n
-        y = (y * 2) % n
+            x = (x * y) % n
+        y = (y * y) % n
         b /= 2
     return x % n
-
-def number_case(a, b, n, k):
-    a_dic = {}
-    b_dic = {}
-    count = 0
-    for i in range(1, n + 1):
-        curr = pow(i, a)
-        try:
-            a_dic[curr % k].add(i)
-        except KeyError:
-            a_dic[curr % k] = set([i])
-
-    for j in range(1, n + 1):
-        curr = pow(j, b)
-        try:
-            b_dic[curr % k].add(j)
-        except KeyError:
-            b_dic[curr % k] = set([j])
-    for d in range(0, k):
-        try:
-            count += len(a_dic[d]) * len(b_dic[(k - d) % k])
-            count -= len(a_dic[d].intersection(b_dic[(k - d) % k]))
-        except KeyError:
-            pass
-    return count
-
 
 if __name__ == '__main__':
     # begin
@@ -83,6 +64,6 @@ if __name__ == '__main__':
     for index in range(num_case):
         temp = input_parameters[pos].split(' ')
         pos += 1
-        a, b, n, k = int(temp[0]), int(temp[1]), int(temp[2]), int(temp[3])
+        a, b, n, k = long(temp[0]), long(temp[1]), long(temp[2]), int(temp[3])
         print "Case #%d: %d" % (index + 1, number_case(a, b, n, k))
 
