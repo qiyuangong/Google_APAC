@@ -9,6 +9,7 @@
 
 | # | Title | Solution | Basic idea (One line) |
 |---| ----- | -------- | --------------------- |
+| A | [Lazy Spelling Bee]() | [Python]() | $\prod_{i=0}^{n - 1} len(set(i - 1, i, i + 1))$|
 
 
 
@@ -25,3 +26,5 @@
 
 | # | Title | Solution | Basic idea (One line) |
 |---| ----- | -------- | --------------------- |
+| A | [Sherlock and Parentheses]() | [Python]() | (n + 1) * n / 2 | 
+| B | [Sherlock and Watson Gym Secrets]() | [Python]() | Three optimizations: 1. Fast power(x, y) % n<br>2. 0~k-1 buckets<br>3. (i + k)^A % k == i^A % k, so if i satisfies, then i + k, i + 2k.... satisfy condition. |
