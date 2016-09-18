@@ -4,7 +4,7 @@
 import sys
 from itertools import permutations
 
-# f(n) = n! - \sum f(i)*(n- i)!
+# f(n) = n! - \sum f(i)*(n-i)!
 # Then optimize dp from O(n^3) to O(n^2)
 
 def permutation_sorting(n, m):
@@ -27,31 +27,6 @@ def permutation_sorting(n, m):
             dp[i][1] = (dp[i][1] + (dp[i - j][0] * 2 + dp[i - j][1]) * f[j] % m) % m
             dp[i][2] = (dp[i][2] + (dp[i - j][2] + dp[i - j][1] + dp[i - j][0]) * f[j] % m) % m
     return dp[n][2]
-
-
-def computer_chunks(l, start, end):
-    count = 0
-    lmax, rmin = -1, -1
-    start += 1
-    while start < end:
-        if lmax == -1:
-            lmax = l[start]
-            rmin = minmin(l[start + 1:end + 1])
-            start += 1
-        if lmax < rmin:
-            count += 1
-            lmax = -1
-        else:
-            if lmax < l[start]:
-                lmax = l[start]
-            rmin = minmin(l[start + 1:end + 1])
-        start += 1
-    return count
-
-
-
-
-
 
 
 if __name__ == '__main__':
